@@ -49,8 +49,7 @@ public class FileTreeImpl implements FileTree {
         for (IsLastInDir file : isLast) {
             Path filePath = file.getPath();
             if (Files.isDirectory(filePath)) {
-                StringBuilder dirLine = createDirLine(file);
-                result.append(dirLine);
+                result.append(createDirLine(file));
                 readDir(filePath);
             } else {
                 result.append(createFileLine(file));
@@ -79,19 +78,19 @@ public class FileTreeImpl implements FileTree {
         }
     }
 
-    private void addNameAndSize(StringBuilder dirLine, Path filePath) {
-        dirLine.append(filePath.getFileName());
+    private void addNameAndSize(StringBuilder fileLine, Path filePath) {
+        fileLine.append(filePath.getFileName());
         try {
-            dirLine.append(getSize(filePath));
+            fileLine.append(getSize(filePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void markLine(StringBuilder dirLine) {
+    private void markLine(StringBuilder fileLine) {
         for (Integer index : needLine) {
-            if (dirLine.charAt(index) == ' ') {
-                dirLine.setCharAt(index, '│');
+            if (fileLine.charAt(index) == ' ') {
+                fileLine.setCharAt(index, '│');
             }
         }
     }
