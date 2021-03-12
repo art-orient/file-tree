@@ -41,6 +41,8 @@ public class FileTreeImpl implements FileTree {
     private void readDir (Path path) throws IOException {
         levelOfFile++;
         List<Path> listOfFiles = Files.list(path)
+                .sorted((p1, p2) -> p1.getFileName().toString()
+                        .compareToIgnoreCase(p2.getFileName().toString()))
                 .sorted((f1, f2) -> { int file1 = Files.isDirectory(f1) ? 1 : 0;
                                     int file2 = Files.isDirectory(f2) ? 1 : 0;
                                     return file2 - file1; })
